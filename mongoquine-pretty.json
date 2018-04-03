@@ -1,0 +1,198 @@
+{
+	"aggregate" : "quine",
+	"cursor" : {
+		
+	},
+	"pipeline" : [
+		{
+			"$project" : {
+				"enilepip" : {
+					"$literal" : {
+						"_project" : {
+							"enilepip" : "pipeline",
+							"pipeline" : "enilepip"
+						}
+					}
+				},
+				"pipeline" : {
+					"$literal" : [
+						{
+							"$addFields" : {
+								"enilepip._project.enilepip" : {
+									"$arrayToObject" : [
+										{
+											"$concatArrays" : [
+												[
+													{
+														"$concatArrays" : [
+															[
+																{
+																	"$literal" : "$literal"
+																},
+																"$enilepip"
+															]
+														]
+													}
+												]
+											]
+										}
+									]
+								},
+								"enilepip._project.pipeline" : {
+									"$arrayToObject" : [
+										{
+											"$concatArrays" : [
+												[
+													{
+														"$concatArrays" : [
+															[
+																{
+																	"$literal" : "$literal"
+																},
+																"$pipeline"
+															]
+														]
+													}
+												]
+											]
+										}
+									]
+								}
+							}
+						},
+						{
+							"$addFields" : {
+								"enilepip" : {
+									"$arrayToObject" : [
+										{
+											"$concatArrays" : [
+												[
+													{
+														"$concatArrays" : [
+															[
+																{
+																	"$literal" : "$project"
+																},
+																"$enilepip._project"
+															]
+														]
+													}
+												]
+											]
+										}
+									]
+								}
+							}
+						},
+						{
+							"$project" : {
+								"_id" : 0,
+								"aggregate" : "quine",
+								"cursor" : {
+									"$literal" : {
+										
+									}
+								},
+								"pipeline" : {
+									"$concatArrays" : [
+										[
+											"$enilepip"
+										],
+										"$pipeline"
+									]
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"$addFields" : {
+				"enilepip._project.enilepip" : {
+					"$arrayToObject" : [
+						{
+							"$concatArrays" : [
+								[
+									{
+										"$concatArrays" : [
+											[
+												{
+													"$literal" : "$literal"
+												},
+												"$enilepip"
+											]
+										]
+									}
+								]
+							]
+						}
+					]
+				},
+				"enilepip._project.pipeline" : {
+					"$arrayToObject" : [
+						{
+							"$concatArrays" : [
+								[
+									{
+										"$concatArrays" : [
+											[
+												{
+													"$literal" : "$literal"
+												},
+												"$pipeline"
+											]
+										]
+									}
+								]
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			"$addFields" : {
+				"enilepip" : {
+					"$arrayToObject" : [
+						{
+							"$concatArrays" : [
+								[
+									{
+										"$concatArrays" : [
+											[
+												{
+													"$literal" : "$project"
+												},
+												"$enilepip._project"
+											]
+										]
+									}
+								]
+							]
+						}
+					]
+				}
+			}
+		},
+		{
+			"$project" : {
+				"_id" : 0,
+				"aggregate" : "quine",
+				"cursor" : {
+					"$literal" : {
+						
+					}
+				},
+				"pipeline" : {
+					"$concatArrays" : [
+						[
+							"$enilepip"
+						],
+						"$pipeline"
+					]
+				}
+			}
+		}
+	]
+}
